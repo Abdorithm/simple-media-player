@@ -3,6 +3,8 @@ import tkinter as tk
 from tkinter import filedialog
 from pygame import mixer
 import tkinter.ttk as ttk
+import librosa
+import soundfile as sf
 
 
 class MP:
@@ -37,6 +39,12 @@ class MP:
 
         prev_button = Button(win, bg='#007a8a', text='Previous', borderwidth=0, width=5, font=('Courier Sans MS', 10), command=self.prev_song)
         prev_button.place(x=60, y=250, anchor='center')
+
+        prev_button = Button(win, bg='#007a8a', text='Compress', borderwidth=0, width=5, font=('Courier Sans MS', 10), command=self.compress)
+        prev_button.place(x=60, y=300, anchor='center')
+
+        prev_button = Button(win, bg='#007a8a', text='Expand', borderwidth=0, width=5, font=('Courier Sans MS', 10), command=self.expand)
+        prev_button.place(x=60, y=350, anchor='center')
 
         self.playing_state = False
 
@@ -131,6 +139,20 @@ class MP:
 
     def volume(self, x):
         mixer.music.set_volume(self.volume_slider.get())
+
+    def compress(self):
+        signal, sr = librosa.load(self.song_box.get(ACTIVE))
+        augmented_signal2 = librosa.effects.time_stretch(signal, rate=2)
+        sf.write("augmented1.wav", augmented_signal2, sr)
+        mixer.music.load("augmented1.wav")
+        mixer.music.play()
+
+    def expand(self):
+        signal, sr = librosa.load(self.song_box.get(ACTIVE))
+        augmented_signal3 = librosa.effects.time_stretch(signal, rate=0.5)
+        sf.write("augmented2.wav", augmented_signal3, sr)
+        mixer.music.load("augmented2.wav")
+        mixer.music.play()
 
 root = Tk()
 MP(root)
