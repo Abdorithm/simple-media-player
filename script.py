@@ -69,7 +69,7 @@ class MP:
     def play(self):
         if self.song_box:
             song = self.song_box.get(ACTIVE)
-            song = f'/home/abdo/Desktop/media-player-python/music/{song}'
+            # song = f'/home/abdo/Desktop/media-player-python/music/{song}'
             mixer.music.load(song)
             mixer.music.play()
             self.playing_state = False
@@ -90,13 +90,13 @@ class MP:
 
     def add_song(self):
         song = filedialog.askopenfilename(title="Choose A Song", filetypes=(("mp3 Files", "*.mp3"), ))
-        song = song.replace("/home/abdo/Desktop/media-player-python/music/", "")
+        # song = song.replace("/home/abdo/Desktop/media-player-python/music/", "")
         self.song_box.insert(END, song)
 
     def add_many_songs(self):
         songs = filedialog.askopenfilenames(title="Choose A Song", filetypes=(("mp3 Files", "*.mp3"), ))
         for song in songs:
-            song = song.replace("/home/abdo/Desktop/media-player-python/music/", "")
+            # song = song.replace("/home/abdo/Desktop/media-player-python/music/", "")
             self.song_box.insert(END, song)
 
     def delete_song(self):
