@@ -111,7 +111,7 @@ class MP:
         next_one = self.song_box.curselection()
         next_one = next_one[0]+1
         song = self.song_box.get(next_one)
-        song = f'/home/abdo/Desktop/media-player-python/music/{song}'
+        # song = f'/home/abdo/Desktop/media-player-python/music/{song}'
         mixer.music.load(song)
         mixer.music.play(loops=0)
         self.song_box.selection_clear(0, END)
@@ -122,7 +122,7 @@ class MP:
         next_one = self.song_box.curselection()
         next_one = next_one[0]-1
         song = self.song_box.get(next_one)
-        song = f'/home/abdo/Desktop/media-player-python/music/{song}'
+        # song = f'/home/abdo/Desktop/media-player-python/music/{song}'
         mixer.music.load(song)
         mixer.music.play(loops=0)
         self.song_box.selection_clear(0, END)
