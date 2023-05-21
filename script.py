@@ -5,6 +5,7 @@ from pygame import mixer
 import tkinter.ttk as ttk
 import librosa
 import soundfile as sf
+import matplotlib.pyplot as plt
 
 
 class MP:
