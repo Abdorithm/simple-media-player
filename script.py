@@ -3,7 +3,7 @@ from tkinter import *
 
 
 import customtkinter as ctk
-from customtkinter import filedialog
+# from customtkinter import filedialog
 from pygame import mixer
 import tkinter as tk
 import tkinter.ttk as ttk
@@ -96,7 +96,7 @@ class MP:
             remove_song_menu.add_command(label="Delete All Songs From Playlist", command=self.delete_all_songs)
 
             # Volume slider
-            self.volume_slider = CTkSlider(win, from_=0, to=100, orientation="vertical", command=self.volume)
+            self.volume_slider = CTkSlider(win, from_=0, to=1, orientation="vertical", command=self.volume)
             self.volume_slider.place(x=555, y=20)
             self.volume_frame = CTkLabel(root, text="Volume", font=('Courier Sans MS', 10))
             self.volume_frame.place(x=540, y=10)
@@ -212,15 +212,6 @@ class MP:
         #TO BE IMPLEMENTED 
         def reset_audio_effects():
             board = Pedalboard();
-            
-     
-    
-            
-            
-            
-
-
-
 
 root = CTk()
 MP(root)
