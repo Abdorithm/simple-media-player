@@ -48,13 +48,8 @@ class MusicPlayerApp(QMainWindow):
         self.progress_slider = QSlider(Qt.Horizontal, self.central_widget)
         self.progress_slider.setMinimum(0)
         self.progress_slider.sliderReleased.connect(self.set_position)
-        self.progress_slider.setStyleSheet("QSlider::groove:horizontal { height: 100px; }")
-        #make progress slide thicker
-        self.progress_slider.setStyleSheet(
-            "QSlider::groove:horizontal { height: 100px; } QSlider::handle:horizontal { width: 20px; }"
-        )
+    
         
-        self.layout.setSpacing(40)
         self.layout.addWidget(self.progress_slider)
         self.media_player.positionChanged.connect(self.update_position_and_duration)
 
