@@ -8,7 +8,7 @@ import shutil
 from pyqtgraph import PlotWidget
 import numpy as np
 import soundfile as sf
-from pedalboard import Pedalboard, Reverb, Compressor, Delay, Distortion, Gain
+from pedalboard import Pedalboard, Reverb, Compressor, Delay, Distortion, Gain, HighpassFilter, LowpassFilter, Clipping
 from pedalboard.io import AudioFile
 from scipy.io import wavfile
 
@@ -98,7 +98,15 @@ class MusicPlayerApp(QMainWindow):
         self.gain_button = QPushButton("Gain", self.central_widget)
         self.control_layout.addWidget(self.gain_button)
         self.gain_button.clicked.connect(self.gain)
-
+        
+        self.highpass_button = QPushButton("Highpass", self.central_widget)
+        self.control_layout.addWidget(self.highpass_button)
+        self.highpass_button.clicked.connect(self.high_pass)
+        
+        self.lowpass_button = QPushButton("Lowpass", self.central_widget)
+        self.control_layout.addWidget(self.lowpass_button)
+        self.lowpass_button.clicked.connect(self.low_pass)
+        
         self.apply_effects_button = QPushButton("Apply Effects", self.central_widget)
         self.control_layout.addWidget(self.apply_effects_button)
         self.apply_effects_button.clicked.connect(self.apply_effects)
@@ -163,7 +171,6 @@ class MusicPlayerApp(QMainWindow):
     def add_many_songs(self):
         original_songs, _ = QFileDialog.getOpenFileNames(self, "Choose Songs", "", "MP3 Files (*.mp3)")
         for original_song in original_songs:
-            song_path = Path(original_song)
             song_name = original_song[:len(original_song) - 4] + "_copy.mp3"
             song = shutil.copyfile(original_song, song_name)
             self.song_box.addItem(song)
@@ -207,7 +214,7 @@ class MusicPlayerApp(QMainWindow):
                 duration = self.media_player.duration() / 1000  # Convert to seconds
 
                 if duration > 0:
-                    position = self.media_player.position() / 1000  # Convert to seconds
+                    position = self.media_player.position() / 1000 # Convert to seconds
 
                     start_index = int((len(data) / duration) * position)
                     end_index = int((len(data) / duration) * (position + 1))
@@ -263,6 +270,20 @@ class MusicPlayerApp(QMainWindow):
 
     def gain(self):
         self.board.append(Gain(gain_db=10))
+        
+    #hih pass filter function
+    def high_pass(self):
+        self.board.append(HighpassFilter(3000))
+        
+    #low pass filter function
+    def low_pass(self):
+        self.board.append(LowpassFilter(500))
+        
+    def clip(self):
+        self.board.append(Clipping(55))
+        
+
+    
 
     def reset_audio_effects(self):
         self.board = Pedalboard()
